@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>找牛在哪里</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="top-nav">
+      <a class="home-link" href="../../index.html">← 返回游乐场</a>
+    </div>
+    <main class="app">
+      <header class="hero">
+        <h1 class="brand">找牛在哪里</h1>
+        <p class="tagline">简单 / 中等 / 困难 / 地狱四条闯关路线。通关解锁下一关，难度越高盘面越大、线索越少。</p>
+      </header>
+
+      <div class="layout">
+        <section class="board-panel">
+          <div class="toolbar">
+            <div class="level-tabs" id="diff-tabs" aria-label="难度"></div>
+            <div class="tool-row">
+              <button type="button" class="tool-btn active" id="mode-cow">放牛</button>
+              <button type="button" class="tool-btn" id="mode-grass">标草地</button>
+              <button type="button" class="tool-btn" id="hint-btn">提示</button>
+              <button type="button" class="tool-btn" id="check-btn">检查</button>
+              <button type="button" class="tool-btn" id="clear-btn">清空</button>
+              <button type="button" class="tool-btn primary" id="retry-btn">重玩本关</button>
+            </div>
+          </div>
+
+          <div class="stage-grid" id="stage-grid" aria-label="关卡"></div>
+
+          <div class="meta-bar">
+            <span>关卡 <strong id="stage-label">简单 · 第 1 关</strong></span>
+            <span>规格 <strong id="size-label">4×4</strong></span>
+            <span id="timer-wrap">剩余 <strong id="timer">02:00</strong></span>
+            <span>提示 <strong id="hint-meta">不限</strong></span>
+          </div>
+
+          <div class="board-wrap">
+            <div class="board" id="board" role="grid" aria-label="牧场棋盘"></div>
+          </div>
+
+          <div class="win-banner" id="win-banner">
+            <div id="win-text">找齐啦！</div>
+            <button type="button" class="tool-btn primary" id="next-btn" hidden>下一关</button>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <h2>怎么玩</h2>
+          <ol class="rules">
+            <li>每种颜色的地块里，只能有 <strong>一头</strong> 牛。</li>
+            <li>每一行、每一列也只能有一头牛。</li>
+            <li>任意两头牛不能相邻，连斜角也不行。</li>
+            <li>过关后才会解锁下一关；通关整个难度后开启更难路线。</li>
+            <li>每关有倒计时，时间到会弹窗询问是否继续。</li>
+          </ol>
+          <div class="status" id="status">正在铺草地…</div>
+          <p class="progress-text" id="progress-text">简单进度 0/6</p>
+          <p class="help-note">
+            简单提示不限；中等每关 2 次；困难与地狱禁用提示。超时会弹窗确认。进度保存在本机浏览器里。
+          </p>
+        </aside>
+      </div>
+    </main>
+
+    <div class="modal" id="timeout-modal" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="timeout-title">
+        <h2 id="timeout-title">时间到！</h2>
+        <p id="timeout-message">本关倒计时已结束，是否继续挑战这一关？</p>
+        <div class="modal-actions">
+          <button type="button" class="tool-btn" id="timeout-cancel-btn">先停一停</button>
+          <button type="button" class="tool-btn primary" id="timeout-continue-btn">继续</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="win-modal" hidden>
+      <div class="modal-card win-card" role="dialog" aria-modal="true" aria-labelledby="win-title">
+        <h2 id="win-title">过关啦！</h2>
+        <p id="win-message">本关已完成，是否进入下一关？</p>
+        <div class="modal-actions">
+          <button type="button" class="tool-btn" id="win-stay-btn">先停一停</button>
+          <button type="button" class="tool-btn primary" id="win-next-btn">下一关</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/puzzle.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>

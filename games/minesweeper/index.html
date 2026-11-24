@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>扫雷 · 游乐场</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="topbar"><a class="back-link" href="../../index.html">← 返回游乐场</a></div>
+    <main class="app">
+      <header class="page-head">
+        <h1 class="brand">扫雷</h1>
+        <p class="tagline">左键揭开，右键插旗。盘面大小固定，难度越高格子越密、雷越多。</p>
+      </header>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div class="level-tabs" id="diffs"></div>
+          <button class="tool-btn primary" id="new-btn">新局</button>
+        </div>
+
+        <div class="meta">
+          <span class="meta-pill">剩余雷 <strong id="left">0</strong></span>
+          <span class="meta-pill">用时 <strong id="time">0</strong>s</span>
+          <span class="meta-pill">规格 <strong id="size-label">9×9</strong></span>
+          <span class="meta-pill">难度 <strong id="diff-label">简单</strong></span>
+        </div>
+
+        <div class="stage">
+          <div class="board-shell">
+            <div class="mine" id="board" aria-label="扫雷棋盘"></div>
+          </div>
+        </div>
+
+        <div class="status" id="status">开始扫雷吧。</div>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

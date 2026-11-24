@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>游乐场</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/hub.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <h1 class="brand">游乐场</h1>
+        <p class="lead">三款益智游戏，同一片草地。选一个，开始玩。</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="games/cow/index.html">进入找牛</a>
+          <a class="btn btn-ghost" href="#games">看看还有什么</a>
+        </div>
+      </header>
+
+      <section id="games" class="catalog">
+        <div class="section-head">
+          <h2>今天玩哪个</h2>
+          <p>都有简单到地狱的难度</p>
+        </div>
+
+        <div class="game-grid">
+          <a class="game-card cow" href="games/cow/index.html">
+            <div class="card-art" aria-hidden="true"></div>
+            <div class="card-body">
+              <p class="game-kicker">逻辑闯关</p>
+              <h3>找牛在哪里</h3>
+              <p>彩色牧场里藏牛：每行、每列、每种颜色刚好一头，还不能挨着。</p>
+              <div class="chips">
+                <span class="chip">限时</span>
+                <span class="chip">闯关</span>
+                <span class="chip">地狱</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="game-card sudoku" href="games/sudoku/index.html">
+            <div class="card-art" aria-hidden="true"></div>
+            <div class="card-body">
+              <p class="game-kicker">数字推理</p>
+              <h3>数独</h3>
+              <p>九宫格填满 1～9。支持笔记、检查，线索越少越难。</p>
+              <div class="chips">
+                <span class="chip">笔记</span>
+                <span class="chip">检查</span>
+                <span class="chip">地狱</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="game-card mine" href="games/minesweeper/index.html">
+            <div class="card-art" aria-hidden="true"></div>
+            <div class="card-body">
+              <p class="game-kicker">经典扫雷</p>
+              <h3>扫雷</h3>
+              <p>左键揭开，右键插旗。盘面大小固定，难度越高雷越密。</p>
+              <div class="chips">
+                <span class="chip">插旗</span>
+                <span class="chip">计时</span>
+                <span class="chip">地狱</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

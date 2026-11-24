@@ -1,0 +1,284 @@
+:root {
+  --ink: #1a2b1c;
+  --muted: #4d6350;
+  --panel: rgba(255, 251, 242, 0.92);
+  --line: rgba(36, 58, 38, 0.14);
+  --accent: #c45c26;
+  --accent-deep: #9a4016;
+  --shadow: 0 24px 50px rgba(24, 40, 24, 0.18);
+  --font-display: "ZCOOL XiaoWei", "Songti SC", "Noto Serif SC", serif;
+  --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--ink);
+  font-family: var(--font-body);
+  background:
+    radial-gradient(ellipse 70% 50% at 18% 8%, rgba(255, 255, 255, 0.55), transparent 55%),
+    radial-gradient(ellipse 55% 40% at 88% 12%, rgba(255, 206, 120, 0.32), transparent 50%),
+    linear-gradient(170deg, #e4f0cf 0%, #b8d68f 38%, #6f9d58 100%);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+    radial-gradient(rgba(48, 78, 40, 0.08) 1.4px, transparent 1.4px);
+  background-size: 28px 28px, 52px 52px;
+  opacity: 0.7;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+.hero {
+  min-height: min(48vh, 380px);
+  display: grid;
+  align-content: end;
+  gap: 0.65rem;
+  padding: 1.4rem 0 1.8rem;
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 9vw, 5.8rem);
+  line-height: 0.92;
+  letter-spacing: 0.06em;
+  color: #152816;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.3);
+  animation: rise 0.7s ease both;
+}
+
+.lead {
+  margin: 0;
+  max-width: 28rem;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.55;
+  animation: rise 0.7s ease 0.08s both;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+  animation: rise 0.7s ease 0.14s both;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 0.95rem;
+  padding: 0.72rem 1.15rem;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #e37d3d, var(--accent-deep));
+  color: #fff8f0;
+  box-shadow: 0 14px 28px rgba(154, 64, 22, 0.28);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.52);
+  border-color: var(--line);
+  backdrop-filter: blur(6px);
+}
+
+.catalog {
+  margin-top: 0.4rem;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-bottom: 0.95rem;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  letter-spacing: 0.04em;
+}
+
+.section-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.game-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: 140px 1fr;
+  min-height: 320px;
+  border-radius: 1.35rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: rise 0.7s ease both;
+}
+
+.game-card:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.game-card:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 55px rgba(24, 40, 24, 0.22);
+}
+
+.card-art {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(255, 251, 242, 0.95));
+}
+
+.game-card.cow .card-art {
+  background:
+    radial-gradient(circle at 72% 30%, rgba(255, 255, 255, 0.45) 0 18%, transparent 19%),
+    radial-gradient(circle at 30% 70%, rgba(134, 239, 172, 0.35), transparent 40%),
+    linear-gradient(140deg, #f0b27a, #7cb35a 55%, #3f7a45);
+}
+
+.game-card.sudoku .card-art {
+  background:
+    linear-gradient(#35522722 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, #35522722 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(145deg, #9ec8e8, #5f8fc4 60%, #3d6ea0);
+}
+
+.game-card.mine .card-art {
+  background:
+    radial-gradient(circle at 25% 40%, #fde68a 0 10%, transparent 11%),
+    radial-gradient(circle at 70% 55%, #1118 0 8%, transparent 9%),
+    linear-gradient(150deg, #a3b18a, #588157 50%, #344e41);
+}
+
+.card-body {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+  padding: 0.2rem 1.15rem 1.2rem;
+}
+
+.game-kicker {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+}
+
+.game-card h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  letter-spacing: 0.03em;
+}
+
+.card-body > p:not(.game-kicker) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.96rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.chip {
+  border-radius: 999px;
+  padding: 0.22rem 0.58rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card {
+    grid-template-rows: 120px 1fr;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .shell {
+    width: min(100% - 1rem, 1120px);
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 1rem;
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数独 · 游乐场</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="topbar"><a class="back-link" href="../../index.html">← 返回游乐场</a></div>
+    <main class="app">
+      <header class="page-head">
+        <h1 class="brand">数独</h1>
+        <p class="tagline">在纸感九宫里填满 1～9。选中格子后，同行同列同宫会跟着亮起来。</p>
+      </header>
+
+      <section class="panel">
+        <div class="toolbar">
+          <div class="level-tabs" id="diffs"></div>
+          <button class="tool-btn" id="note-btn">笔记</button>
+          <button class="tool-btn" id="erase-btn">擦除</button>
+          <button class="tool-btn" id="check-btn">检查</button>
+          <button class="tool-btn primary" id="new-btn">新局</button>
+        </div>
+
+        <div class="meta">
+          <span class="meta-pill">难度 <strong id="diff-label">简单</strong></span>
+          <span class="meta-pill">空格 <strong id="empty-label">0</strong></span>
+        </div>
+
+        <div class="stage">
+          <div class="board-shell">
+            <div class="sudoku" id="board" aria-label="数独棋盘"></div>
+          </div>
+          <div class="pad" id="pad" aria-label="数字键盘"></div>
+        </div>
+
+        <div class="status" id="status">点格子后输入数字。</div>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
