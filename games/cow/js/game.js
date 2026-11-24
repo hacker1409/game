@@ -43,6 +43,7 @@
     timedOut: false,
     hintsUsed: 0,
     progress: null,
+    loadToken: 0,
   };
 
   function defaultProgress() {
@@ -341,6 +342,9 @@
     nodes.forEach(function (node) {
       node.classList.remove("conflict");
     });
+    if (!state.puzzle || !state.cells.length) {
+      return { conflicts: [], complete: false };
+    }
     const result = CowPuzzle.validateBoard(state.puzzle.regions, currentCows());
     result.conflicts.forEach(function (item) {
       const node = boardEl.querySelector('[data-row="' + item.row + '"][data-col="' + item.col + '"]');
@@ -350,13 +354,16 @@
   }
 
   function renderMarks() {
+    if (!state.cells.length) return;
     const nodes = boardEl.querySelectorAll(".cell");
     nodes.forEach(function (node) {
       const row = Number(node.dataset.row);
       const col = Number(node.dataset.col);
+      if (!state.cells[row] || state.cells[row][col] == null) return;
       const value = state.cells[row][col];
       const mark = node.querySelector(".mark");
       const lock = node.querySelector(".lock");
+      if (!mark) return;
       if (value === "cow") {
         mark.textContent = "🐄";
         mark.className = "mark cow";
@@ -369,6 +376,13 @@
       }
       if (lock) lock.style.display = isGiven(row, col) ? "block" : "none";
     });
+  }
+
+  function resetBoardView() {
+    boardEl.innerHTML = "";
+    boardEl.style.removeProperty("--size");
+    state.cells = [];
+    state.puzzle = null;
   }
 
   function nextPlayable() {
@@ -440,6 +454,7 @@
   }
 
   function cycleCell(row, col, preferred) {
+    if (!state.puzzle || !state.cells.length) return;
     if (state.won || state.timedOut || isGiven(row, col)) return;
     const current = state.cells[row][col];
     let next = "";
@@ -490,13 +505,13 @@
     for (let row = 0; row < n; row++) {
       for (let col = 0; col < n; col++) {
         const region = puzzle.regions[row][col];
-        const color = puzzle.colors[region];
+        const color = puzzle.colors[region] || puzzle.colors[0] || { fill: "#dce8cb" };
         const cell = document.createElement("button");
         cell.type = "button";
         cell.className = "cell";
         cell.dataset.row = String(row);
         cell.dataset.col = String(col);
-        cell.style.setProperty("--cell-fill", color.fill);
+        cell.style.setProperty("--cell-fill", color.fill || "#dce8cb");
         cell.setAttribute("aria-label", "第" + (row + 1) + "行第" + (col + 1) + "列");
 
         const mark = document.createElement("span");
@@ -550,6 +565,7 @@
       return;
     }
 
+    const token = ++state.loadToken;
     state.progress.current = {
       difficultyId: state.difficultyId,
       stageIndex: state.stageIndex,
@@ -559,6 +575,8 @@
     stopTimer();
     hideTimeoutModal();
     hideWinModal();
+    // 先清掉上一关的牛和色块，避免切关时残留整盘图标
+    resetBoardView();
     setStatus("正在铺草地…");
     winEl.classList.remove("show");
     nextBtn.hidden = true;
@@ -578,12 +596,15 @@
     renderStageGrid();
 
     window.setTimeout(function () {
+      if (token !== state.loadToken) return;
       try {
-        state.puzzle = CowPuzzle.createPuzzle(stage.size, {
+        const puzzle = CowPuzzle.createPuzzle(stage.size, {
           maxGivens: stage.maxGivens,
           maxAttempts:
             stage.size >= 11 ? 100 : stage.size >= 10 ? 120 : stage.size >= 9 ? 180 : stage.size >= 8 ? 220 : 320,
         });
+        if (token !== state.loadToken) return;
+        state.puzzle = puzzle;
         applyGivens();
         buildBoard();
         renderMarks();
@@ -599,9 +620,10 @@
         maybeWin();
         updateHintUi();
       } catch (err) {
+        if (token !== state.loadToken) return;
         setStatus("出题失败，点「重玩本关」再试一次。", "bad");
       }
-    }, 20);
+    }, 30);
   }
 
   function selectStage(diffId, stageIndex) {
