@@ -379,8 +379,17 @@
   }
 
   function resetBoardView() {
-    boardEl.innerHTML = "";
-    boardEl.style.removeProperty("--size");
+    // 只清内容，保留棋盘占位尺寸，避免切关时页面上下跳
+    const nodes = boardEl.querySelectorAll(".cell .mark");
+    nodes.forEach(function (mark) {
+      mark.textContent = "";
+      mark.className = mark.classList.contains("lock") ? "mark lock" : "mark";
+    });
+    boardEl.querySelectorAll(".cell").forEach(function (cell) {
+      cell.classList.remove("conflict", "hint-flash");
+      const lock = cell.querySelector(".lock");
+      if (lock) lock.style.display = "none";
+    });
     state.cells = [];
     state.puzzle = null;
   }
@@ -474,7 +483,10 @@
     maybeWin();
   }
 
-  function fitBoard() {
+  let lastFitKey = "";
+  let fitTimer = null;
+
+  function fitBoard(force) {
     if (!state.puzzle) return;
     const n = state.puzzle.size;
     const wrap = boardEl.parentElement;
@@ -491,8 +503,19 @@
       620
     );
     const border = 6;
-    const cell = Math.floor((available - border) / n);
-    boardEl.style.setProperty("--cell", Math.max(18, cell) + "px");
+    const cell = Math.max(18, Math.floor((available - border) / n));
+    const key = n + ":" + cell;
+    if (!force && key === lastFitKey) return;
+    lastFitKey = key;
+    boardEl.style.setProperty("--cell", cell + "px");
+  }
+
+  function scheduleFitBoard() {
+    if (fitTimer) clearTimeout(fitTimer);
+    fitTimer = setTimeout(function () {
+      fitTimer = null;
+      fitBoard(false);
+    }, 150);
   }
 
   function buildBoard() {
@@ -526,6 +549,7 @@
 
         cell.addEventListener("click", function (event) {
           event.preventDefault();
+          cell.blur();
           cycleCell(row, col, state.mode);
         });
         cell.addEventListener("contextmenu", function (event) {
@@ -536,8 +560,7 @@
         boardEl.appendChild(cell);
       }
     }
-    fitBoard();
-    window.requestAnimationFrame(fitBoard);
+    fitBoard(true);
   }
 
   function applyGivens() {
@@ -802,10 +825,5 @@
   setMode("cow");
   loadStage();
 
-  window.addEventListener("resize", function () {
-    fitBoard();
-  });
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", fitBoard);
-  }
+  window.addEventListener("resize", scheduleFitBoard);
 })();
